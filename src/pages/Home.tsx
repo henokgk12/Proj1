@@ -1,14 +1,15 @@
-function Home() {
+export default function Home() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      {/* Hero Section */}
-      <section className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Mechena</h1>
-        <p className="text-gray-700 text-lg">
-          Showcasing the projects, skills, and achievements of professional mechanical engineers.
-        </p>
-      </section>
+    <div className="p-8">
+      <h1 className="text-4xl font-bold mb-4">Welcome to Mechena</h1>
+      <p className="mb-8">
+        Showcasing the projects, skills, and achievements of professional mechanical engineers.
+      </p>
 
+      {/* 👇 Just for testing Tailwind */}
+      <div className="bg-red-500 text-white p-10">Test Tailwind</div>
+    
+  
       {/* Featured Projects Grid */}
       <section>
         <h2 className="text-2xl font-semibold mb-6">Featured Projects</h2>
@@ -27,5 +28,3 @@ function Home() {
     </div>
   );
 }
-
-export default Home;
