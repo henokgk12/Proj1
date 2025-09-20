@@ -1,15 +1,35 @@
-import { Link } from "react-router-dom";
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
-function NotFound() {
+const NotFound = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 text-center">
-      <h1 className="text-4xl font-bold mb-4">404 – Page Not Found</h1>
-      <p className="text-gray-600 mb-6">The page you’re looking for does not exist.</p>
-      <Link to="/" className="text-blue-600 hover:underline">
-        Back to Home
-      </Link>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-neutralLight px-6 text-center">
+      <motion.h1
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.8 }}
+        className="text-6xl font-heading font-bold text-primary mb-4"
+      >
+        404
+      </motion.h1>
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+        className="text-xl text-gray-700 mb-6"
+      >
+        Oops! The page you are looking for doesn’t exist.
+      </motion.p>
+      <motion.div whileHover={{ scale: 1.05 }}>
+        <Link
+          to="/"
+          className="bg-primary text-white py-3 px-6 rounded shadow-lg transition-all"
+        >
+          Go Back Home
+        </Link>
+      </motion.div>
     </div>
   );
-}
+};
 
 export default NotFound;

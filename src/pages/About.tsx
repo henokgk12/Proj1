@@ -1,26 +1,46 @@
-function About() {
-  return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <section className="text-center mb-12">
-        <h1 className="text-3xl font-bold mb-4">About Our Engineers</h1>
-        <p className="text-gray-700 text-lg">
-          Meet our team of highly skilled mechanical engineers with real-world experience and professional achievements.
-        </p>
-      </section>
+import { motion } from 'framer-motion';
 
-      <section className="grid md:grid-cols-2 gap-8">
-        {[1, 2].map((i) => (
-          <div key={i} className="border p-4 rounded shadow hover:shadow-lg transition">
-            <div className="h-40 bg-gray-200 mb-4 flex items-center justify-center">Engineer {i} Photo</div>
-            <h3 className="font-semibold mb-2">Engineer Name {i}</h3>
-            <p className="text-gray-600 text-sm">
-              Short bio, achievements, internships, or notable projects.
-            </p>
+const About = () => {
+  const timeline = [
+    'Graduated with Honors – 2022',
+    'Completed Internship at XYZ Corp – 2023',
+    'Official Work Experience at ABC Ltd – 2024',
+  ];
+
+  return (
+    <div className="bg-white min-h-screen px-8 py-20">
+      <motion.h1
+        initial={{ x: -50, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="text-4xl font-heading font-bold mb-8 text-center"
+      >
+        About Us
+      </motion.h1>
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="max-w-3xl mx-auto text-gray-700 text-lg mb-6 text-center"
+      >
+        We are a team of highly honored mechanical engineering graduates with real tested skills, internships, and official work experience. We decided to take our expertise pro-level to deliver outstanding solutions.
+      </motion.p>
+
+      {/* Timeline Section */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="mt-12 space-y-6 max-w-3xl mx-auto"
+      >
+        {timeline.map((event, idx) => (
+          <div key={idx} className="bg-primary text-white rounded-lg p-4 shadow-lg text-center">
+            {event}
           </div>
         ))}
-      </section>
+      </motion.div>
     </div>
   );
-}
+};
 
 export default About;
