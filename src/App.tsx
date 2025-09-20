@@ -29,18 +29,20 @@ export default function App() {
 
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-neutralLight dark:bg-neutralDark text-neutralDark dark:text-neutralLight transition-colors duration-500">
-        
+      <div className="min-h-screen bg-gray-50 dark:bg-neutralDark transition-colors duration-300">
+
         {/* Dark mode toggle */}
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="p-2 m-4 bg-primary text-white rounded"
-        >
-          Toggle Dark Mode
-        </button>
+        <div className="p-4 flex justify-end">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="px-4 py-2 rounded bg-blue-500 text-white dark:bg-gray-700 dark:text-gray-200"
+          >
+            {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          </button>
+        </div>
 
         {/* Navbar */}
-        <nav className="bg-white dark:bg-neutralDark shadow-md sticky top-0 z-50">
+        <nav className="bg-white dark:bg-neutralDark shadow-md sticky top-0 z-50 backdrop-blur-md bg-opacity-90">
           <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <NavLink to="/" className="text-2xl font-bold text-blue-700 dark:text-white">
               Mechena
@@ -54,7 +56,9 @@ export default function App() {
                   to={link.to}
                   className={({ isActive }) =>
                     `transition-colors duration-300 hover:text-blue-600 ${
-                      isActive ? "text-blue-700 font-semibold" : "text-gray-700 dark:text-gray-300"
+                      isActive
+                        ? "text-blue-700 font-semibold border-b-2 border-blue-700"
+                        : "text-gray-700 dark:text-gray-300 hover:border-b-2 hover:border-blue-600"
                     }`
                   }
                 >
@@ -65,12 +69,19 @@ export default function App() {
 
             {/* Hamburger button */}
             <button
-              className="md:hidden focus:outline-none"
+              className="md:hidden focus:outline-none transform transition-transform duration-300"
               aria-label="Toggle navigation menu"
               aria-expanded={isOpen}
               onClick={() => setIsOpen(!isOpen)}
             >
-              <svg className="w-7 h-7 text-blue-700 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className={`w-7 h-7 text-blue-700 dark:text-white transition-transform duration-300 ${
+                  isOpen ? "rotate-45" : "rotate-0"
+                }`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 {isOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -82,8 +93,8 @@ export default function App() {
 
           {/* Mobile menu */}
           <div
-            className={`md:hidden bg-gray-50 dark:bg-neutralDark px-6 pb-4 space-y-2 transition-all duration-300 ease-in-out ${
-              isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+            className={`md:hidden bg-gray-50 dark:bg-neutralDark px-6 pb-4 space-y-2 overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${
+              isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
             } rounded-b shadow-md`}
           >
             {navLinks.map((link) => (
@@ -104,7 +115,7 @@ export default function App() {
         </nav>
 
         {/* Pages */}
-        <main className="flex-grow max-w-6xl mx-auto px-6 py-10">
+        <main className="max-w-6xl mx-auto px-6 py-10">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

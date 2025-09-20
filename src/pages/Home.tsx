@@ -1,80 +1,89 @@
-import { motion } from 'framer-motion';
+import { NavLink } from "react-router-dom";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Text } from "@react-three/drei";
+import { useRef, useEffect } from "react";
+import { Mesh } from "three";
 
-interface Engineer {
-  name: string;
-  role: string;
-  img?: string;
-  skills?: string[];
-}
+export default function Home() {
+  const cubeRef = useRef<Mesh>(null);
 
-const Home = () => {
-  const engineers: Engineer[] = [
-    { name: 'Jane Doe', role: 'Mechanical Engineer', img: '/assets/jane.jpg', skills: ['CAD', 'Simulation'] },
-    { name: 'John Smith', role: 'Mechanical Engineer', img: '/assets/john.jpg', skills: ['Design', 'Prototyping'] },
-    { name: 'Alex Kim', role: 'Mechanical Engineer', img: '/assets/alex.jpg', skills: ['Analysis', 'Testing'] },
+  // Rotate cube slowly
+  useEffect(() => {
+    const animate = () => {
+      if (cubeRef.current) {
+        cubeRef.current.rotation.x += 0.005;
+        cubeRef.current.rotation.y += 0.005;
+      }
+      requestAnimationFrame(animate);
+    };
+    animate();
+  }, []);
+
+  // Labels positions around cube
+  const labels = [
+    { text: "CAD", position: [2, 0, 0] },
+    { text: "SolidWorks", position: [-2, 0, 0] },
+    { text: "3D Printing", position: [0, 2, 0] },
+    { text: "Simulation", position: [0, -2, 0] },
+    { text: "Design", position: [0, 0, 2] },
   ];
 
-  // Inline EngineerCard component with typed props
-  const EngineerCard: React.FC<Engineer> = ({ name, role, img, skills = [] }) => (
-    <div className="bg-white rounded-lg shadow p-6 text-center">
-      {img && <img src={img} alt={name} className="w-24 h-24 mx-auto rounded-full mb-4" />}
-      <h3 className="font-bold text-lg">{name}</h3>
-      <p className="text-gray-600 mb-2">{role}</p>
-      {skills.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-2 mt-2">
-          {skills.map((skill) => (
-            <span
-              key={skill}
-              className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-
   return (
-    <div className="bg-neutralLight min-h-screen">
-      {/* Hero Section */}
-      <section className="h-screen bg-gradient-to-br from-primary to-blue-500 flex flex-col justify-center items-center text-center text-white px-6">
-        <motion.h1
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="text-5xl font-heading font-bold mb-4"
-        >
-          Elite Mechanical Engineering Graduates
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="text-xl mb-8 max-w-xl"
-        >
-          Proven Skills. Real Projects. Professional Impact.
-        </motion.p>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-secondary text-white font-bold py-3 px-6 rounded shadow-lg"
-        >
-          View Our Engineers
-        </motion.button>
-      </section>
+    <section className="min-h-screen flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl mx-auto px-6 py-16">
+      
+      {/* Text content */}
+      <div className="flex-1 text-center md:text-left space-y-6">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white">
+          Hi, I’m <span className="text-blue-600 dark:text-blue-400">Mechena</span>
+        </h1>
+        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
+          I design, build, and optimize machines for the future. Bringing innovative mechanical solutions to life.
+        </p>
 
-      {/* Engineers Section */}
-      <section id="about" className="py-20 px-8 bg-neutralLight">
-        <h2 className="text-3xl font-heading font-bold mb-12 text-center">Our Engineers</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {engineers.map((e) => (
-            <EngineerCard key={e.name} {...e} />
-          ))}
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-4">
+          <NavLink
+            to="/projects"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+          >
+            View Projects
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors duration-300"
+          >
+            Contact Me
+          </NavLink>
         </div>
-      </section>
-    </div>
-  );
-};
+      </div>
 
-export default Home;
+      {/* 3D Cube */}
+      <div className="flex-1 mb-12 md:mb-0 w-full h-96">
+        <Canvas camera={{ position: [5, 5, 5], fov: 50 }}>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
+          <mesh ref={cubeRef}>
+            <boxGeometry args={[2, 2, 2]} />
+            <meshStandardMaterial color="#3B82F6" />
+          </mesh>
+
+          {/* Labels */}
+          {labels.map((label, i) => (
+            <Text
+              key={i}
+              position={label.position as [number, number, number]}
+              fontSize={0.9}
+              color="#1D4ED8"
+              anchorX="center"
+              anchorY="middle"
+            >
+              {label.text}
+            </Text>
+          ))}
+
+          <OrbitControls enableZoom={false} />
+        </Canvas>
+      </div>
+    </section>
+  );
+}

@@ -1,46 +1,54 @@
-import { motion } from 'framer-motion';
+import { NavLink } from "react-router-dom";
 
-const About = () => {
-  const timeline = [
-    'Graduated with Honors – 2022',
-    'Completed Internship at XYZ Corp – 2023',
-    'Official Work Experience at ABC Ltd – 2024',
-  ];
-
+export default function HomeExtras() {
   return (
-    <div className="bg-white min-h-screen px-8 py-20">
-      <motion.h1
-        initial={{ x: -50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="text-4xl font-heading font-bold mb-8 text-center"
-      >
-        About Us
-      </motion.h1>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 1 }}
-        className="max-w-3xl mx-auto text-gray-700 text-lg mb-6 text-center"
-      >
-        We are a team of highly honored mechanical engineering graduates with real tested skills, internships, and official work experience. We decided to take our expertise pro-level to deliver outstanding solutions.
-      </motion.p>
+    <section className="max-w-6xl mx-auto px-6 py-16 space-y-20">
 
-      {/* Timeline Section */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="mt-12 space-y-6 max-w-3xl mx-auto"
-      >
-        {timeline.map((event, idx) => (
-          <div key={idx} className="bg-primary text-white rounded-lg p-4 shadow-lg text-center">
-            {event}
+      {/* About Section */}
+      <div className="flex flex-col md:flex-row items-center md:space-x-12">
+        {/* Image */}
+        <div className="flex-1 mb-8 md:mb-0">
+          <div className="w-full h-64 md:h-80 bg-gray-200 dark:bg-gray-800 rounded-xl shadow-md flex items-center justify-center">
+            <span className="text-gray-600 dark:text-gray-300 font-semibold">About Image</span>
           </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-};
+        </div>
 
-export default About;
+        {/* Text */}
+        <div className="flex-1 space-y-4">
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-white">About Me</h2>
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
+            I’m a Mechanical Engineer passionate about designing efficient and innovative machines. I specialize in turning ideas into tangible products, focusing on both aesthetics and performance.
+          </p>
+          <NavLink
+            to="/about"
+            className="inline-block px-6 py-3 mt-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+          >
+            Learn More
+          </NavLink>
+        </div>
+      </div>
+
+      {/* Services Section */}
+      <div className="space-y-8">
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-white text-center">Services</h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {/* Service Card */}
+          {[
+            { title: "3D Modeling", desc: "Precision CAD models for any project." },
+            { title: "Prototyping", desc: "Turn your ideas into functional prototypes." },
+            { title: "Mechanical Analysis", desc: "Stress, motion, and performance simulations." },
+          ].map((service) => (
+            <div
+              key={service.title}
+              className="bg-white dark:bg-neutralDark rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300"
+            >
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">{service.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{service.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
