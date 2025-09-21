@@ -27,6 +27,14 @@ export default function HomeExtras() {
           </NavLink>
         </div>
       </div>
+      <div className="bg-white/90 text-gray-900 rounded-2xl shadow-lg p-6 mb-8">
+  <h3 className="text-lg font-semibold">Irrigation Systems</h3>
+  <p>
+    Precision-engineered irrigation solutions designed for efficiency
+    and sustainability.
+  </p>
+</div>
+
 
       {/* Services Section */}
       <div className="space-y-8">

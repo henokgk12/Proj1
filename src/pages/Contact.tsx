@@ -9,7 +9,9 @@ const Contact = () => {
       </p>
       <ContactForm />
     </div>
+    
   );
+  
 };
 
 export default Contact;

@@ -6,6 +6,7 @@ import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import logo from "./assets/logo.png";
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,9 +29,12 @@ export default function App() {
   ];
 
   return (
+    
     <Router>
-      <div className="min-h-screen bg-gray-50 dark:bg-neutralDark transition-colors duration-300">
-
+ <div className="min-h-screen bg-gradient-to-br from-green-700 via-emerald-600 to-teal-500 text-white">
+      
+      <main className="px-4 md:px-12">
+</main>
         {/* Dark mode toggle */}
         <div className="p-4 flex justify-end">
           <button
@@ -44,9 +48,14 @@ export default function App() {
         {/* Navbar */}
         <nav className="bg-white dark:bg-neutralDark shadow-md sticky top-0 z-50 backdrop-blur-md bg-opacity-90">
           <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <NavLink to="/" className="text-2xl font-bold text-blue-700 dark:text-white">
-              Mechena
-            </NavLink>
+          <NavLink to="/" className="flex items-center">
+  <img 
+    src={logo} 
+    alt="Mechena Logo" 
+    className="h-10 w-auto md:h-12"
+  />
+</NavLink>
+
 
             {/* Desktop menu */}
             <div className="hidden md:flex space-x-8">
@@ -128,8 +137,11 @@ export default function App() {
 
         {/* Footer */}
         <footer className="bg-white dark:bg-neutralDark border-t text-center p-6 text-sm text-gray-600 dark:text-gray-300 shadow-inner">
-          © {new Date().getFullYear()} Mechena. All rights reserved.
-        </footer>
+        <div className="flex flex-col items-center gap-2">
+  <img src={logo} alt="Mechena Logo" className="h-8 w-auto" />
+  <span>© {new Date().getFullYear()} Mechena. All rights reserved.</span>
+</div>
+</footer>
       </div>
     </Router>
   );
